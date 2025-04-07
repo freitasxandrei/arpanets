@@ -30,3 +30,6 @@ def dashboard_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+def home_redirect_view(request):
+    return redirect('login')

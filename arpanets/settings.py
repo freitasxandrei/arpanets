@@ -54,7 +54,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'arpanets',
         'USER': 'root',
-        'PASSWORD': 'sua_senha',
+        'PASSWORD': 'senha',
         'HOST': 'localhost',
         'PORT': '3306',
     }
