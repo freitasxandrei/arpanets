@@ -1,3 +1,3 @@
-# Projeto Arpanets - Atividade 2
+# Projeto Arpanets
 
-Sistema de Login e Cadastro com Django + MySQL.
+Sistema básico de login e cadastro.
