@@ -51,24 +51,16 @@ WSGI_APPLICATION = 'arpanets.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'arpanets',
-        'USER': 'root',
-        'PASSWORD': 'senha',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    },
-
-    'render_postgres': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'arpanets_app',
-            'USER': 'arpanets_app_user',
-            'PASSWORD': 'yiGg5av7rY5jiZYr5iNVEmNSCbSOZVdI', 
-            'HOST': 'dpg-d0057pqli9vc739i88t0-a',
-            'PORT': '5432',
-        }
-
-
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'aparnets_app',  # Nome do banco de dados
+        'USER': 'aparnets_app_user',  # Nome de usuário
+        'PASSWORD': 'yiGg5av7rY5jiZYr5iNVEmNSCbSOZVdI',  # Senha do usuário
+        'HOST': 'dpg-d0057pqli9vc739i88t0-a.virginia-postgres.render.com',  # Endereço do banco de dados
+        'PORT': '5432',  # Porta padrão do PostgreSQL
+        'OPTIONS': {
+            'client_encoding': 'UTF8',
+        },
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = []
