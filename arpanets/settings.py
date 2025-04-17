@@ -57,7 +57,18 @@ DATABASES = {
         'PASSWORD': 'senha',
         'HOST': 'localhost',
         'PORT': '3306',
-    }
+    },
+
+    'render_postgres': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'arpanets_app',
+            'USER': 'arpanets_app_user',
+            'PASSWORD': 'yiGg5av7rY5jiZYr5iNVEmNSCbSOZVdI', 
+            'HOST': 'dpg-d0057pqli9vc739i88t0-a',
+            'PORT': '5432',
+        }
+
+
 }
 
 AUTH_PASSWORD_VALIDATORS = []
