@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Questionário</title>
+</head>
+<body>
+    <h1>Resultado do Questionário SRQ-20</h1>
+    
+    <p><strong>Usuário:</strong> {{ questionnaire.user.username }}</p>
+    <p><strong>Data de Resposta:</strong> {{ questionnaire.response_date }}</p>
+    <p><strong>Pontuação Total:</strong> {{ questionnaire.total_score }}</p>
+    <p><strong>Nível de Sofrimento:</strong> {{ questionnaire.suffering_level }}</p>
+    
+    <h2>Respostas:</h2>
+    <ul>
+        {% for answer in answers %}
+            <li><strong>Pergunta {{ answer.question_number }}:</strong> 
+                {% if answer.answer == True %}
+                    Sim
+                {% else %}
+                    Não
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{% url 'questionnaire' %}">Voltar ao Questionário</a>
+</body>
+</html>

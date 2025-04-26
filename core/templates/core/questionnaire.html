@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário SRQ-20</title>
+</head>
+<body>
+    <h1>Questionário SRQ-20</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div>
+            <label for="question_1">1. Você tem dores de cabeça frequentes?</label><br>
+            <input type="radio" name="question_1" value="Sim" id="question_1_sim"> Sim
+            <input type="radio" name="question_1" value="Não" id="question_1_nao"> Não
+        </div>
+        <div>
+            <label for="question_2">2. Tem falta de apetite?</label><br>
+            <input type="radio" name="question_2" value="Sim" id="question_2_sim"> Sim
+            <input type="radio" name="question_2" value="Não" id="question_2_nao"> Não
+        </div>
+        <div>
+            <label for="question_3">3. Dorme mal?</label><br>
+            <input type="radio" name="question_3" value="Sim" id="question_3_sim"> Sim
+            <input type="radio" name="question_3" value="Não" id="question_3_nao"> Não
+        </div>
+        <div>
+            <label for="question_4">4. Assusta-se com facilidade?</label><br>
+            <input type="radio" name="question_4" value="Sim" id="question_4_sim"> Sim
+            <input type="radio" name="question_4" value="Não" id="question_4_nao"> Não
+        </div>
+        <div>
+            <label for="question_5">5. Tem tremores nas mãos?</label><br>
+            <input type="radio" name="question_5" value="Sim" id="question_5_sim"> Sim
+            <input type="radio" name="question_5" value="Não" id="question_5_nao"> Não
+        </div>
+        <div>
+            <label for="question_6">6. Sente-se nervoso(a), tenso(a) ou preocupado(a)?</label><br>
+            <input type="radio" name="question_6" value="Sim" id="question_6_sim"> Sim
+            <input type="radio" name="question_6" value="Não" id="question_6_nao"> Não
+        </div>
+        <div>
+            <label for="question_7">7. Tem má digestão?</label><br>
+            <input type="radio" name="question_7" value="Sim" id="question_7_sim"> Sim
+            <input type="radio" name="question_7" value="Não" id="question_7_nao"> Não
+        </div>
+        <div>
+            <label for="question_8">8. Tem dificuldades de pensar com clareza?</label><br>
+            <input type="radio" name="question_8" value="Sim" id="question_8_sim"> Sim
+            <input type="radio" name="question_8" value="Não" id="question_8_nao"> Não
+        </div>
+        <div>
+            <label for="question_9">9. Tem se sentido triste ultimamente?</label><br>
+            <input type="radio" name="question_9" value="Sim" id="question_9_sim"> Sim
+            <input type="radio" name="question_9" value="Não" id="question_9_nao"> Não
+        </div>
+        <div>
+            <label for="question_10">10. Tem chorado mais do que de costume?</label><br>
+            <input type="radio" name="question_10" value="Sim" id="question_10_sim"> Sim
+            <input type="radio" name="question_10" value="Não" id="question_10_nao"> Não
+        </div>
+        <div>
+            <label for="question_11">11. Encontra dificuldades para realizar com satisfação suas atividades diárias?</label><br>
+            <input type="radio" name="question_11" value="Sim" id="question_11_sim"> Sim
+            <input type="radio" name="question_11" value="Não" id="question_11_nao"> Não
+        </div>
+        <div>
+            <label for="question_12">12. Tem dificuldades para tomar decisões?</label><br>
+            <input type="radio" name="question_12" value="Sim" id="question_12_sim"> Sim
+            <input type="radio" name="question_12" value="Não" id="question_12_nao"> Não
+        </div>
+        <div>
+            <label for="question_13">13. Tem dificuldades no serviço (seu trabalho é penoso, causa-lhe sofrimento?)</label><br>
+            <input type="radio" name="question_13" value="Sim" id="question_13_sim"> Sim
+            <input type="radio" name="question_13" value="Não" id="question_13_nao"> Não
+        </div>
+        <div>
+            <label for="question_14">14. É incapaz de desempenhar um papel útil em sua vida?</label><br>
+            <input type="radio" name="question_14" value="Sim" id="question_14_sim"> Sim
+            <input type="radio" name="question_14" value="Não" id="question_14_nao"> Não
+        </div>
+        <div>
+            <label for="question_15">15. Tem perdido o interesse pelas coisas?</label><br>
+            <input type="radio" name="question_15" value="Sim" id="question_15_sim"> Sim
+            <input type="radio" name="question_15" value="Não" id="question_15_nao"> Não
+        </div>
+        <div>
+            <label for="question_16">16. Você se sente uma pessoa inútil, sem préstimo?</label><br>
+            <input type="radio" name="question_16" value="Sim" id="question_16_sim"> Sim
+            <input type="radio" name="question_16" value="Não" id="question_16_nao"> Não
+        </div>
+        <div>
+            <label for="question_17">17. Tem tido ideia de acabar com a vida?</label><br>
+            <input type="radio" name="question_17" value="Sim" id="question_17_sim"> Sim
+            <input type="radio" name="question_17" value="Não" id="question_17_nao"> Não
+        </div>
+        <div>
+            <label for="question_18">18. Sente-se cansado(a) o tempo todo?</label><br>
+            <input type="radio" name="question_18" value="Sim" id="question_18_sim"> Sim
+            <input type="radio" name="question_18" value="Não" id="question_18_nao"> Não
+        </div>
+        <div>
+            <label for="question_19">19. Você se cansa com facilidade?</label><br>
+            <input type="radio" name="question_19" value="Sim" id="question_19_sim"> Sim
+            <input type="radio" name="question_19" value="Não" id="question_19_nao"> Não
+        </div>
+        <div>
+            <label for="question_20">20. Tem sensações desagradáveis no estômago?</label><br>
+            <input type="radio" name="question_20" value="Sim" id="question_20_sim"> Sim
+            <input type="radio" name="question_20" value="Não" id="question_20_nao"> Não
+        </div>
+        
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

@@ -32,10 +32,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'arpanets.urls'
 
+import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'core', 'templates', 'core')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,3 +81,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.User'
+
+LOGIN_REDIRECT_URL = '/questionnaire/'  

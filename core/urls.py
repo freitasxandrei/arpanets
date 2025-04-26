@@ -2,13 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # Outras rotas para autenticação
-    path('', views.home_redirect_view, name='home'),
+    path('', views.home_redirect_view, name='home'),  
+    path('questionnaire/', views.questionnaire, name='questionnaire'),
+    path('questionnaire_result/<int:pk>/', views.questionnaire_result, name='questionnaire_result'),
     path('register/', views.register_view, name='register'),
     path('login/', views.login_view, name='login'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('logout/', views.logout_view, name='logout'),
-
-    # Rota para a API do SRQ-20
-    path('api/srq20/', views.srq20_response_list, name='srq20_response_list'),
 ]
