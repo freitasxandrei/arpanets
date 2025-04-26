@@ -1,20 +1,27 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect # type: ignore
+from django.http import HttpResponse # type: ignore
 from .models import Questionnaire, Answer
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
-from django.contrib.auth.forms import UserCreationForm
-from django.utils import timezone
+from django.contrib.auth.decorators import login_required # type: ignore
+from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate # type: ignore
+from django.contrib.auth.forms import UserCreationForm # type: ignore
+from django.utils import timezone # type: ignore
 
 # Função para redirecionar para a página de login ou questionário
 @login_required
 def home_redirect_view(request):
     return redirect('login')  # Redireciona para o questionário se o usuário estiver logado
 
-# Register view for creating a new user
+# core/views.py
+
+from django.shortcuts import render, redirect # type: ignore
+from .forms import RegisterForm  # Importe o seu formulário personalizado
+from django.contrib.auth import login as auth_login, authenticate # type: ignore
+from django.contrib.auth.forms import UserCreationForm # type: ignore # type: ignore
+
+# Função para registrar o usuário
 def register_view(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)  # Use o formulário personalizado
         if form.is_valid():
             form.save()
             # Fazer o login automaticamente após o registro
@@ -23,7 +30,7 @@ def register_view(request):
                 auth_login(request, user)
                 return redirect('questionnaire')  # Redireciona para o questionário após o registro e login
     else:
-        form = UserCreationForm()
+        form = RegisterForm()  # Use o formulário personalizado
     return render(request, 'core/register.html', {'form': form})
 
 # Login view
@@ -36,7 +43,7 @@ def login_view(request):
             auth_login(request, user)
             return redirect('questionnaire')  # Redireciona para o questionário após o login
         else:
-            return HttpResponse("Credenciais inválidas.")
+            return render(request, 'core/login.html', {'error': 'Usuário ou senha inválidos'})  
     return render(request, 'core/login.html')
 
 # Dashboard view (just a placeholder for now)
@@ -55,13 +62,12 @@ def logout_view(request):
 def questionnaire(request):
     if request.method == 'POST':
         responses = {}
-        # Verificar se todas as respostas foram preenchidas
+
+        # Coletando as respostas, considerando que a ausência de resposta é tratada como 'Não'
         for i in range(1, 21):
             response = request.POST.get(f"question_{i}")
-            if not response:  # Se a resposta estiver vazia, interrompe e exibe erro
-                return HttpResponse("Por favor, preencha todas as perguntas antes de enviar.")
-            responses[f"question_{i}"] = response  # Armazenar 'Sim' ou 'Não' diretamente
-        
+            responses[f"question_{i}"] = response if response else 'Não'
+
         # Calculando a pontuação total
         total_score = sum([1 for response in responses.values() if response == 'Sim'])
 

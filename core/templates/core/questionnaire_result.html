@@ -17,11 +17,7 @@
     <ul>
         {% for answer in answers %}
             <li><strong>Pergunta {{ answer.question_number }}:</strong> 
-                {% if answer.answer == True %}
-                    Sim
-                {% else %}
-                    Não
-                {% endif %}
+                {{ answer.answer }}  <!-- Exibindo a resposta diretamente -->
             </li>
         {% endfor %}
     </ul>
