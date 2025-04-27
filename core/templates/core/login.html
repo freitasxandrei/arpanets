@@ -1,13 +1,118 @@
-<h2>Login</h2>
-<form method="POST">
-  {% csrf_token %}
-  <input type="text" name="username" placeholder="Usuário">
-  <input type="password" name="password" placeholder="Senha">
-  <button type="submit">Entrar</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #71493f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
 
-{% if error %}
-  <p style="color:red;">{{ error }}</p>
-{% endif %}
+      .login-container {
+        background-color: white;
+        padding: 2.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
 
-<p>Ainda não tem uma conta? <a href="{% url 'register' %}">Cadastre-se aqui</a>.</p>
+      h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: border 0.3s;
+      }
+
+      input:focus {
+        border-color: #4a90e2;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #3a7bc8;
+      }
+
+      .error-message {
+        color: #e74c3c;
+        text-align: center;
+        margin: 1rem 0;
+      }
+
+      .register-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #666;
+      }
+
+      .register-link a {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .register-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% endif %}
+
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="text" name="username" placeholder="Usuário" required />
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Senha" required />
+        </div>
+        <button type="submit">Entrar</button>
+      </form>
+
+      <div class="register-link">
+        Ainda não tem uma conta?
+        <a href="{% url 'register' %}">Cadastre-se aqui</a>.
+      </div>
+    </div>
+  </body>
+</html>
