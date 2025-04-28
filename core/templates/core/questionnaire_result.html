@@ -4,24 +4,262 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado do Questionário</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000;
+            --secondary-color: #171c20;
+            --accent-color: #ff6b6b;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #F2EAE1;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            font-weight: 600;
+            margin-top: 30px;
+            color: var(--secondary-color);
+        }
+        
+        .user-info {
+            background-color: #ebd8c4;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .user-info p {
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .user-info strong {
+            display: block;
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .score-display {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .total-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+        
+        .suffering-level {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+        
+        /* Cores para diferentes níveis de sofrimento */
+        .low {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .high {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .answers-list {
+            list-style: none;
+        }
+        
+        .answers-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        
+        .answers-list li:hover {
+            transform: translateX(5px);
+            background-color: #e9ecef;
+        }
+        
+        .answers-list strong {
+            min-width: 100px;
+            color: var(--secondary-color);
+        }
+        
+        .answer-value {
+            margin-left: 10px;
+            font-weight: 500;
+        }
+        
+        .answer-value.positive {
+            color: var(--danger-color);
+        }
+        
+        .answer-value.negative {
+            color: var(--success-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .user-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .total-score {
+                font-size: 36px;
+            }
+            
+            .answers-list li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .answers-list strong {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Resultado do Questionário SRQ-20</h1>
-    
-    <p><strong>Usuário:</strong> {{ questionnaire.user.username }}</p>
-    <p><strong>Data de Resposta:</strong> {{ questionnaire.response_date }}</p>
-    <p><strong>Pontuação Total:</strong> {{ questionnaire.total_score }}</p>
-    <p><strong>Nível de Sofrimento:</strong> {{ questionnaire.suffering_level }}</p>
-    
-    <h2>Respostas:</h2>
-    <ul>
-        {% for answer in answers %}
-            <li><strong>Pergunta {{ answer.question_number }}:</strong> 
-                {{ answer.answer }}  <!-- Exibindo a resposta diretamente -->
-            </li>
-        {% endfor %}
-    </ul>
-    
-    <a href="{% url 'questionnaire' %}">Voltar ao Questionário</a>
+    <div class="container">
+        <h1>Resultado do Questionário SRQ-20</h1>
+        
+        <div class="user-info">
+            <p>
+                <strong>Usuário:</strong>
+                {{ questionnaire.user.username }}
+            </p>
+            <p>
+                <strong>Data de Resposta:</strong>
+                {{ questionnaire.response_date }}
+            </p>
+        </div>
+        
+        <div class="score-display">
+            <h2>Pontuação Total</h2>
+            <div class="total-score">{{ questionnaire.total_score }}/20</div>
+            <div class="suffering-level {{ questionnaire.suffering_level|lower }}">
+                {{ questionnaire.suffering_level }}
+            </div>
+        </div>
+        
+        <h2>Detalhes das Respostas</h2>
+        <ul class="answers-list">
+            {% for answer in answers %}
+                <li>
+                    <strong>Pergunta {{ answer.question_number }}:</strong>
+                    <span class="answer-value {% if answer.answer == 'Sim' %}positive{% else %}negative{% endif %}">
+                        {{ answer.answer }}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <div class="interpretation">
+            <h2>Interpretação</h2>
+            <p>O SRQ-20 é um instrumento de rastreamento de transtornos mentais comuns. Pontuações mais altas indicam maior probabilidade de sofrimento psíquico:</p>
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li><strong>0-6:</strong> Baixa probabilidade</li>
+                <li><strong>7-10:</strong> Probabilidade moderada</li>
+                <li><strong>11+:</strong> Alta probabilidade</li>
+            </ul>
+            <p style="margin-top: 15px; font-style: italic;">Este resultado não representa um diagnóstico. Consulte um profissional de saúde mental para avaliação completa.</p>
+        </div>
+        
+        <a href="{% url 'questionnaire' %}" class="btn btn-block">Voltar ao Questionário</a>
+    </div>
 </body>
 </html>
+

@@ -1,221 +1,478 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionário SRQ-20</title>
-  </head>
-  <body>
-    <h1>Questionário SRQ-20</h1>
-    <form method="POST">
-      {% csrf_token %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cae;
+            --accent-color: #ff6b6b;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #F2EAE1;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #000;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        .intro {
+            background-color: #ecdac5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .question-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .question-group:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .question-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .options {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #7fbfff;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .options {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Questionário SRQ-20</h1>
+        
+        <div class="intro">
+            <p>Responda ao questionário SRQ-20 sobre como se sentiu nos últimos 30 dias. São 20 perguntas (Sim/Não) que avaliam sofrimento mental, mas não dão diagnóstico(só um profissional pode diagnosticar). Cada Sim soma 1 ponto, variando de 0 (sem sofrimento) a 20 (sofrimento grave). Pontuação ≥ 7 indica possível sofrimento. Responda todas as questões.</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Pergunta 1 -->
+            <div class="question-group">
+                <label for="question_1">1. Você tem dores de cabeça frequentes?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_1" value="Sim" id="question_1_sim" {% if request.POST.question_1 == 'Sim' %}checked{% endif %}>
+                        <label for="question_1_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_1" value="Não" id="question_1_nao" {% if request.POST.question_1 == 'Não' %}checked{% endif %}>
+                        <label for="question_1_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 2 -->
+            <div class="question-group">
+                <label for="question_2">2. Tem falta de apetite?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_2" value="Sim" id="question_2_sim" {% if request.POST.question_2 == 'Sim' %}checked{% endif %}>
+                        <label for="question_2_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_2" value="Não" id="question_2_nao" {% if request.POST.question_2 == 'Não' %}checked{% endif %}>
+                        <label for="question_2_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 3 -->
+            <div class="question-group">
+                <label for="question_3">3. Dorme mal?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_3" value="Sim" id="question_3_sim" {% if request.POST.question_3 == 'Sim' %}checked{% endif %}>
+                        <label for="question_3_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_3" value="Não" id="question_3_nao" {% if request.POST.question_3 == 'Não' %}checked{% endif %}>
+                        <label for="question_3_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 4 -->
+            <div class="question-group">
+                <label for="question_4">4. Assusta-se com facilidade?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_4" value="Sim" id="question_4_sim" {% if request.POST.question_4 == 'Sim' %}checked{% endif %}>
+                        <label for="question_4_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_4" value="Não" id="question_4_nao" {% if request.POST.question_4 == 'Não' %}checked{% endif %}>
+                        <label for="question_4_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 5 -->
+            <div class="question-group">
+                <label for="question_5">5. Tem tremores nas mãos?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_5" value="Sim" id="question_5_sim" {% if request.POST.question_5 == 'Sim' %}checked{% endif %}>
+                        <label for="question_5_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_5" value="Não" id="question_5_nao" {% if request.POST.question_5 == 'Não' %}checked{% endif %}>
+                        <label for="question_5_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 6 -->
+            <div class="question-group">
+                <label for="question_6">6. Sente-se nervoso(a), tenso(a) ou preocupado(a)?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_6" value="Sim" id="question_6_sim" {% if request.POST.question_6 == 'Sim' %}checked{% endif %}>
+                        <label for="question_6_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_6" value="Não" id="question_6_nao" {% if request.POST.question_6 == 'Não' %}checked{% endif %}>
+                        <label for="question_6_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 7 -->
+            <div class="question-group">
+                <label for="question_7">7. Tem má digestão?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_7" value="Sim" id="question_7_sim" {% if request.POST.question_7 == 'Sim' %}checked{% endif %}>
+                        <label for="question_7_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_7" value="Não" id="question_7_nao" {% if request.POST.question_7 == 'Não' %}checked{% endif %}>
+                        <label for="question_7_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 8 -->
+            <div class="question-group">
+                <label for="question_8">8. Tem dificuldades de pensar com clareza?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_8" value="Sim" id="question_8_sim" {% if request.POST.question_8 == 'Sim' %}checked{% endif %}>
+                        <label for="question_8_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_8" value="Não" id="question_8_nao" {% if request.POST.question_8 == 'Não' %}checked{% endif %}>
+                        <label for="question_8_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 9 -->
+            <div class="question-group">
+                <label for="question_9">9. Tem se sentido triste ultimamente?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_9" value="Sim" id="question_9_sim" {% if request.POST.question_9 == 'Sim' %}checked{% endif %}>
+                        <label for="question_9_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_9" value="Não" id="question_9_nao" {% if request.POST.question_9 == 'Não' %}checked{% endif %}>
+                        <label for="question_9_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 10 -->
+            <div class="question-group">
+                <label for="question_10">10. Tem chorado mais do que de costume?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_10" value="Sim" id="question_10_sim" {% if request.POST.question_10 == 'Sim' %}checked{% endif %}>
+                        <label for="question_10_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_10" value="Não" id="question_10_nao" {% if request.POST.question_10 == 'Não' %}checked{% endif %}>
+                        <label for="question_10_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 11 -->
+            <div class="question-group">
+                <label for="question_11">11. Encontra dificuldades para realizar com satisfação suas atividades diárias?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_11" value="Sim" id="question_11_sim" {% if request.POST.question_11 == 'Sim' %}checked{% endif %}>
+                        <label for="question_11_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_11" value="Não" id="question_11_nao" {% if request.POST.question_11 == 'Não' %}checked{% endif %}>
+                        <label for="question_11_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 12 -->
+            <div class="question-group">
+                <label for="question_12">12. Tem dificuldades para tomar decisões?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_12" value="Sim" id="question_12_sim" {% if request.POST.question_12 == 'Sim' %}checked{% endif %}>
+                        <label for="question_12_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_12" value="Não" id="question_12_nao" {% if request.POST.question_12 == 'Não' %}checked{% endif %}>
+                        <label for="question_12_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 13 -->
+            <div class="question-group">
+                <label for="question_13">13. Tem dificuldades no serviço (seu trabalho é penoso, causa-lhe sofrimento?)</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_13" value="Sim" id="question_13_sim" {% if request.POST.question_13 == 'Sim' %}checked{% endif %}>
+                        <label for="question_13_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_13" value="Não" id="question_13_nao" {% if request.POST.question_13 == 'Não' %}checked{% endif %}>
+                        <label for="question_13_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 14 -->
+            <div class="question-group">
+                <label for="question_14">14. É incapaz de desempenhar um papel útil em sua vida?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_14" value="Sim" id="question_14_sim" {% if request.POST.question_14 == 'Sim' %}checked{% endif %}>
+                        <label for="question_14_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_14" value="Não" id="question_14_nao" {% if request.POST.question_14 == 'Não' %}checked{% endif %}>
+                        <label for="question_14_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 15 -->
+            <div class="question-group">
+                <label for="question_15">15. Tem perdido o interesse pelas coisas?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_15" value="Sim" id="question_15_sim" {% if request.POST.question_15 == 'Sim' %}checked{% endif %}>
+                        <label for="question_15_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_15" value="Não" id="question_15_nao" {% if request.POST.question_15 == 'Não' %}checked{% endif %}>
+                        <label for="question_15_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 16 -->
+            <div class="question-group">
+                <label for="question_16">16. Você se sente uma pessoa inútil, sem préstimo?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_16" value="Sim" id="question_16_sim" {% if request.POST.question_16 == 'Sim' %}checked{% endif %}>
+                        <label for="question_16_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_16" value="Não" id="question_16_nao" {% if request.POST.question_16 == 'Não' %}checked{% endif %}>
+                        <label for="question_16_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 17 -->
+            <div class="question-group">
+                <label for="question_17">17. Tem tido ideia de acabar com a vida?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_17" value="Sim" id="question_17_sim" {% if request.POST.question_17 == 'Sim' %}checked{% endif %}>
+                        <label for="question_17_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_17" value="Não" id="question_17_nao" {% if request.POST.question_17 == 'Não' %}checked{% endif %}>
+                        <label for="question_17_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 18 -->
+            <div class="question-group">
+                <label for="question_18">18. Sente-se cansado(a) o tempo todo?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_18" value="Sim" id="question_18_sim" {% if request.POST.question_18 == 'Sim' %}checked{% endif %}>
+                        <label for="question_18_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_18" value="Não" id="question_18_nao" {% if request.POST.question_18 == 'Não' %}checked{% endif %}>
+                        <label for="question_18_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 19 -->
+            <div class="question-group">
+                <label for="question_19">19. Você se cansa com facilidade?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_19" value="Sim" id="question_19_sim" {% if request.POST.question_19 == 'Sim' %}checked{% endif %}>
+                        <label for="question_19_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_19" value="Não" id="question_19_nao" {% if request.POST.question_19 == 'Não' %}checked{% endif %}>
+                        <label for="question_19_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pergunta 20 -->
+            <div class="question-group">
+                <label for="question_20">20. Tem sensações desagradáveis no estômago?</label>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question_20" value="Sim" id="question_20_sim" {% if request.POST.question_20 == 'Sim' %}checked{% endif %}>
+                        <label for="question_20_sim">Sim</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question_20" value="Não" id="question_20_nao" {% if request.POST.question_20 == 'Não' %}checked{% endif %}>
+                        <label for="question_20_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit">Enviar Respostas</button>
+        </form>
+    </div>
 
-      <!-- Pergunta 1 -->
-      <div>
-        <label for="question_1">1. Você tem dores de cabeça frequentes?</label
-        ><br />
-        <input type="radio" name="question_1" value="Sim" id="question_1_sim" {%
-        if request.POST.question_1 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_1" value="Não" id="question_1_nao" {% if
-        request.POST.question_1 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 2 -->
-      <div>
-        <label for="question_2">2. Tem falta de apetite?</label><br />
-        <input type="radio" name="question_2" value="Sim" id="question_2_sim" {%
-        if request.POST.question_2 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_2" value="Não" id="question_2_nao" {% if
-        request.POST.question_2 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 3 -->
-      <div>
-        <label for="question_3">3. Dorme mal?</label><br />
-        <input type="radio" name="question_3" value="Sim" id="question_3_sim" {%
-        if request.POST.question_3 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_3" value="Não" id="question_3_nao" {% if
-        request.POST.question_3 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 4 -->
-      <div>
-        <label for="question_4">4. Assusta-se com facilidade?</label><br />
-        <input type="radio" name="question_4" value="Sim" id="question_4_sim" {%
-        if request.POST.question_4 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_4" value="Não" id="question_4_nao" {% if
-        request.POST.question_4 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 5 -->
-      <div>
-        <label for="question_5">5. Tem tremores nas mãos?</label><br />
-        <input type="radio" name="question_5" value="Sim" id="question_5_sim" {%
-        if request.POST.question_5 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_5" value="Não" id="question_5_nao" {% if
-        request.POST.question_5 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 6 -->
-      <div>
-        <label for="question_6"
-          >6. Sente-se nervoso(a), tenso(a) ou preocupado(a)?</label
-        ><br />
-        <input type="radio" name="question_6" value="Sim" id="question_6_sim" {%
-        if request.POST.question_6 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_6" value="Não" id="question_6_nao" {% if
-        request.POST.question_6 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 7 -->
-      <div>
-        <label for="question_7">7. Tem má digestão?</label><br />
-        <input type="radio" name="question_7" value="Sim" id="question_7_sim" {%
-        if request.POST.question_7 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_7" value="Não" id="question_7_nao" {% if
-        request.POST.question_7 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 8 -->
-      <div>
-        <label for="question_8"
-          >8. Tem dificuldades de pensar com clareza?</label
-        ><br />
-        <input type="radio" name="question_8" value="Sim" id="question_8_sim" {%
-        if request.POST.question_8 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_8" value="Não" id="question_8_nao" {% if
-        request.POST.question_8 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 9 -->
-      <div>
-        <label for="question_9">9. Tem se sentido triste ultimamente?</label
-        ><br />
-        <input type="radio" name="question_9" value="Sim" id="question_9_sim" {%
-        if request.POST.question_9 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_9" value="Não" id="question_9_nao" {% if
-        request.POST.question_9 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 10 -->
-      <div>
-        <label for="question_10">10. Tem chorado mais do que de costume?</label
-        ><br />
-        <input type="radio" name="question_10" value="Sim" id="question_10_sim"
-        {% if request.POST.question_10 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_10" value="Não" id="question_10_nao" {% if
-        request.POST.question_10 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 11 -->
-      <div>
-        <label for="question_11"
-          >11. Encontra dificuldades para realizar com satisfação suas
-          atividades diárias?</label
-        ><br />
-        <input type="radio" name="question_11" value="Sim" id="question_11_sim"
-        {% if request.POST.question_11 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_11" value="Não" id="question_11_nao" {% if
-        request.POST.question_11 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 12 -->
-      <div>
-        <label for="question_12"
-          >12. Tem dificuldades para tomar decisões?</label
-        ><br />
-        <input type="radio" name="question_12" value="Sim" id="question_12_sim"
-        {% if request.POST.question_12 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_12" value="Não" id="question_12_nao" {% if
-        request.POST.question_12 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 13 -->
-      <div>
-        <label for="question_13"
-          >13. Tem dificuldades no serviço (seu trabalho é penoso, causa-lhe
-          sofrimento?)</label
-        ><br />
-        <input type="radio" name="question_13" value="Sim" id="question_13_sim"
-        {% if request.POST.question_13 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_13" value="Não" id="question_13_nao" {% if
-        request.POST.question_13 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 14 -->
-      <div>
-        <label for="question_14"
-          >14. É incapaz de desempenhar um papel útil em sua vida?</label
-        ><br />
-        <input type="radio" name="question_14" value="Sim" id="question_14_sim"
-        {% if request.POST.question_14 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_14" value="Não" id="question_14_nao" {% if
-        request.POST.question_14 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 15 -->
-      <div>
-        <label for="question_15"
-          >15. Tem perdido o interesse pelas coisas?</label
-        ><br />
-        <input type="radio" name="question_15" value="Sim" id="question_15_sim"
-        {% if request.POST.question_15 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_15" value="Não" id="question_15_nao" {% if
-        request.POST.question_15 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 16 -->
-      <div>
-        <label for="question_16"
-          >16. Você se sente uma pessoa inútil, sem préstimo?</label
-        ><br />
-        <input type="radio" name="question_16" value="Sim" id="question_16_sim"
-        {% if request.POST.question_16 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_16" value="Não" id="question_16_nao" {% if
-        request.POST.question_16 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 17 -->
-      <div>
-        <label for="question_17">17. Tem tido ideia de acabar com a vida?</label
-        ><br />
-        <input type="radio" name="question_17" value="Sim" id="question_17_sim"
-        {% if request.POST.question_17 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_17" value="Não" id="question_17_nao" {% if
-        request.POST.question_17 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 18 -->
-      <div>
-        <label for="question_18">18. Sente-se cansado(a) o tempo todo?</label
-        ><br />
-        <input type="radio" name="question_18" value="Sim" id="question_18_sim"
-        {% if request.POST.question_18 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_18" value="Não" id="question_18_nao" {% if
-        request.POST.question_18 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 19 -->
-      <div>
-        <label for="question_19">19. Você se cansa com facilidade?</label><br />
-        <input type="radio" name="question_19" value="Sim" id="question_19_sim"
-        {% if request.POST.question_19 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_19" value="Não" id="question_19_nao" {% if
-        request.POST.question_19 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <!-- Pergunta 20 -->
-      <div>
-        <label for="question_20"
-          >20. Tem sensações desagradáveis no estômago?</label
-        ><br />
-        <input type="radio" name="question_20" value="Sim" id="question_20_sim"
-        {% if request.POST.question_20 == 'Sim' %}checked{% endif %}> Sim <input
-        type="radio" name="question_20" value="Não" id="question_20_nao" {% if
-        request.POST.question_20 == 'Não' %}checked{% endif %}> Não
-      </div>
-
-      <button type="submit">Enviar</button>
-    </form>
-  </body>
+    <script>
+        // Atualiza a barra de progresso conforme o usuário responde
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const progressBar = document.getElementById('progressBar');
+            const totalQuestions = 20;
+            
+            function updateProgress() {
+                const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+                const progress = (answered / totalQuestions) * 100;
+                progressBar.style.width = progress + '%';
+            }
+            
+            // Atualiza ao carregar a página (caso já tenha respostas)
+            updateProgress();
+            
+            // Atualiza quando o usuário seleciona uma opção
+            form.addEventListener('change', updateProgress);
+        });
+    </script>
+</body>
 </html>
+
